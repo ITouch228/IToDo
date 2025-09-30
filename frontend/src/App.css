@@ -1,0 +1,119 @@
+/* .app-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+.app-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1vw;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.add-task-button {
+  margin-right: 5vw;
+  padding: 10px 30px;
+  border: 1px solid transparent;
+  border-radius: 50px;
+  transition: all 0.5s;
+}
+
+.add-task-button:hover {
+  color: white;
+  background-color: #5e6268;
+  border-color: rgb(155, 155, 155);
+}
+
+.login-modal-container {
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 2%;
+  height: 40vh;
+  width: 40vw;
+  margin: auto;
+  padding: 2%;
+  border: 2px solid #000;
+  border-radius: 10px;
+  box-shadow: 2px solid black;
+}
+
+.login-modal-container form {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 7%;
+  width: 100%;
+  height: 50%;
+  padding: 2%;
+}
+
+.login-modal-container input {
+  width: 50%;
+}
+
+.task-container {
+  display: flex;
+  flex-direction: row;
+  gap: 2%;
+}
+
+.tasks {
+  width: 33vw;
+  border: 1px solid gray;
+} */
+
+:root {
+  --primary-color: #4361ee;
+  --secondary-color: #3f37c9;
+  --accent-color: #4895ef;
+  --danger-color: #f72585;
+  --success-color: #4cc9f0;
+  --light-color: #f8f9fa;
+  --dark-color: #212529;
+  --gray-color: #6c757d;
+  --border-radius: 8px;
+  --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  background-color: #f5f7fa;
+  color: var(--dark-color);
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .main-content {
+    padding: 1rem;
+  }
+}

@@ -1,0 +1,166 @@
+.task-item {
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  transition: var(--transition);
+  border-left: 4px solid var(--gray-color);
+}
+
+.task-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.task-item.high {
+  border-left-color: #ff6a6a;
+}
+
+.task-item.medium {
+  border-left-color: #ffe478;
+}
+
+.task-item.low {
+  border-left-color: #49ffa1;
+}
+
+.task-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.8rem;
+}
+
+.task-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--dark-color);
+  margin: 0;
+}
+
+.task-deadline {
+  font-size: 0.8rem;
+  color: var(--gray-color);
+  background-color: #f0f0f0;
+  padding: 0.3rem 0.6rem;
+  border-radius: 1rem;
+  font-weight: 500;
+}
+
+.task-description {
+  color: var(--gray-color);
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+}
+
+.task-actions {
+  display: flex;
+  gap: 0.8rem;
+}
+
+.btn.small {
+  padding: 0.3rem 0.8rem;
+  font-size: 0.8rem;
+}
+
+.btn.danger {
+  background-color: var(--danger-color);
+  color: white;
+}
+
+.custom-checkbox {
+  display: inline-block;
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+  user-select: none;
+  margin-left: 10px;
+}
+
+.custom-checkbox input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+
+.checkmark {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fff;
+  border: 2px solid #3b82f6;
+  border-radius: 4px;
+  transition: all 0.3s;
+}
+
+.custom-checkbox:hover input ~ .checkmark {
+  background-color: #f0f7ff;
+}
+
+.custom-checkbox input:checked ~ .checkmark {
+  background-color: #3b82f6;
+}
+
+.checkmark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+.custom-checkbox input:checked ~ .checkmark:after {
+  display: block;
+}
+
+.custom-checkbox .checkmark:after {
+  left: 6px;
+  top: 2px;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+/* Стиль для завершенной задачи */
+.task-item.completed {
+  opacity: 0.8;
+  background-color: #f8f9fa;
+}
+
+.task-item.completed .task-title,
+.task-item.completed .task-description {
+  text-decoration: line-through;
+  color: #6b7280;
+}
+
+.task-item {
+  transition: all 0.5s ease;
+}
+
+.task-item.fade-out {
+  opacity: 0;
+  transform: translateX(100%);
+  height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+  border: none;
+  overflow: hidden;
+  transition: opacity 0.7s ease, transform 0.7s ease, height 0.7s ease 0.3s,
+    padding 0.7s ease 0.3s, margin 0.7s ease 0.3s;
+}
+
+/* Отключаем hover-эффекты при удалении */
+.task-item.fade-out:hover {
+  background-color: inherit !important;
+}
+
+/* Адаптация других элементов при анимации */
+.task-item.fade-out .task-header,
+.task-item.fade-out .task-description,
+.task-item.fade-out .task-actions {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}

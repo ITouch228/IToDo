@@ -1,0 +1,70 @@
+.task-section {
+  margin-bottom: 2rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  padding: 1.5rem;
+  box-shadow: var(--box-shadow);
+}
+
+.section-title {
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  color: var(--secondary-color);
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--accent-color);
+}
+
+.task-list {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+.empty-message {
+  color: var(--gray-color);
+  font-style: italic;
+  text-align: center;
+  padding: 1rem;
+}
+
+@media (max-width: 768px) {
+  .task-list {
+    grid-template-columns: 1fr;
+  }
+}
+
+.task-section-header {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.toggle-section-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--secondary-color);
+  transition: transform 0.2s ease;
+}
+
+.toggle-section-btn:hover {
+  opacity: 0.8;
+}
+
+.toggle-icon {
+  transition: transform 0.2s ease;
+  transform: rotate(180deg);
+}
+
+.toggle-icon.expanded {
+  transform: rotate(0deg);
+}
+
+.section-title {
+  margin-bottom: 1.5rem;
+  border-bottom: 2px solid var(--accent-color);
+  padding-bottom: 0.5rem;
+  flex-grow: 1;
+}
