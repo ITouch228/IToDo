@@ -49,7 +49,7 @@ export const editTask = async (taskData) => {
     console.log(formattedTask);
     const token = localStorage.getItem("access_token");
 
-    const response = await axios.post(`${API_URL}/tasks/edit/`, formattedTask, {
+    const response = await axios.post(`${API_URL}/tasks/edit`, formattedTask, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
