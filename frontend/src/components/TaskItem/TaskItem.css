@@ -22,6 +22,10 @@
   border-left-color: #49ffa1;
 }
 
+.task-item.overdue {
+  border-bottom: 4px solid #ff0000;
+}
+
 .task-header {
   display: flex;
   justify-content: space-between;
@@ -43,6 +47,10 @@
   padding: 0.3rem 0.6rem;
   border-radius: 1rem;
   font-weight: 500;
+}
+
+.task-deadline.overdue {
+  color: red;
 }
 
 .task-description {

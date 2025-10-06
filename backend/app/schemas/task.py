@@ -13,6 +13,9 @@ class TaskBase(BaseModel):
 class TaskCreate(TaskBase):
     pass
 
+class TaskEdit(TaskBase):
+    id: int
+
 class TaskUpdate(BaseModel):
     title: Optional[str] = None
     description: Optional[str] = None

@@ -4,18 +4,21 @@ import Header from "./components/Header/Header";
 import LoginModal from "./components/LoginModal/LoginModal";
 import RegisterModal from "./components/RegisterModal/RegisterModal";
 import NewTaskModal from "./components/NewTaskModal/NewTaskModal";
+import EditTaskModal from "./components/EditTaskModal/EditTaskModal";
 import TaskList from "./components/TaskList/TaskList";
 import { login, register, getCurrentUser } from "./api/auth";
-import { createTask, deleteTask, getTasks, completeTask } from "./api/tasks";
+import { createTask, editTask, deleteTask, getTasks, completeTask } from "./api/tasks";
 import axios from "axios";
 import { formatDateTime } from "./utils/dateUtils";
 
 function App() {
   const [authModal, setAuthModal] = useState(null); // 'login' или 'register'
-  const [showTaskModal, setShowTaskModal] = useState(false);
+  const [showNewTaskModal, setShowNewTaskModal] = useState(false);
+  const [showEditTaskModal, setShowEditTaskModal] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState([]);
+  const [editingTask, setEditingTask] = useState(null);
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [lang, setLang] = useState("eng");
@@ -107,11 +110,25 @@ function App() {
       setError(null);
       task = await createTask(task);
       setTasks((prev) => [...prev, task]);
-      setShowTaskModal(false);
+      setShowNewTaskModal(false);
     } catch (err) {
       alert(err);
       setError(
         err.response?.data?.message || "Create task failed. Please try again."
+      );
+    }
+  };
+
+  const handleEditTask = async (task) => {
+    try {
+      setError(null);
+      task = await editTask(task);
+      setTasks((prev) => prev.map(el => el.id === task.id ? task : el));
+      setShowEditTaskModal(false);
+    } catch (err) {
+      alert(err);
+      setError(
+        err.response?.data?.message || "Edit task failed. Please try again."
       );
     }
   };
@@ -253,16 +270,26 @@ function App() {
         isLoggedIn={isLoggedIn}
         onLoginClick={() => setAuthModal("login")}
         onLogoutClick={handleLogout}
-        onNewTaskClick={() => setShowTaskModal(true)}
+        onNewTaskClick={() => setShowNewTaskModal(true)}
         appContainerRef={appRef.current}
       />
 
-      {showTaskModal === true && (
+      {showNewTaskModal === true && (
         <NewTaskModal
           lang={lang}
           error={error}
-          onClose={() => setShowTaskModal(false)}
+          onClose={() => setShowNewTaskModal(false)}
           onCreateTask={handleCreateTask}
+        />
+      )}
+
+      {showEditTaskModal === true && (
+        <EditTaskModal
+          task={editingTask}
+          lang={lang}
+          error={error}
+          onClose={() => setShowEditTaskModal(false)}
+          onEditTask={handleEditTask}
         />
       )}
 
@@ -298,6 +325,10 @@ function App() {
           }}
           onDeleteTask={handleDeleteTask}
           onToggleComplete={handleToggleComplete}
+          onEditTask={(task) => {
+            setEditingTask(task);
+            setShowEditTaskModal(true);
+          }}
         />
         <TaskList
           lang={lang}
@@ -309,6 +340,10 @@ function App() {
           }}
           onDeleteTask={handleDeleteTask}
           onToggleComplete={handleToggleComplete}
+          onEditTask={(task) => {
+            setEditingTask(task);
+            setShowEditTaskModal(true);
+          }}
         />
         <TaskList
           lang={lang}
@@ -320,6 +355,10 @@ function App() {
           }}
           onDeleteTask={handleDeleteTask}
           onToggleComplete={handleToggleComplete}
+          onEditTask={(task) => {
+            setEditingTask(task);
+            setShowEditTaskModal(true);
+          }}
         />
         <TaskList
           lang={lang}
@@ -331,6 +370,10 @@ function App() {
           }}
           onDeleteTask={handleDeleteTask}
           onToggleComplete={handleToggleComplete}
+          onEditTask={(task) => {
+            setEditingTask(task);
+            setShowEditTaskModal(true);
+          }}
         />
       </main>
     </div>

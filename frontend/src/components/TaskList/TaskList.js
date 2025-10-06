@@ -9,8 +9,9 @@ function TaskList({
   emptyMessages,
   onDeleteTask,
   onToggleComplete,
+  onEditTask
 }) {
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(true);
   const sortedTasks = [...tasks].sort((a, b) => b.priority - a.priority);
 
   return (
@@ -46,6 +47,8 @@ function TaskList({
                   lang={lang}
                   onDeleteTask={onDeleteTask}
                   onToggleComplete={onToggleComplete}
+                  section={titles["eng"]}
+                  onEditTask={(task) => onEditTask(task)}
                 />
               ))}
             </ul>
@@ -57,7 +60,7 @@ function TaskList({
         </>
       ) : (
         <>
-          <p className="empty-message">
+          <p className={`empty-message${titles["eng"] === "Overdue Tasks" ? " overdue" : ""}`}>
             {lang === "eng"
               ? sortedTasks.length === 0
                 ? emptyMessages["eng"]

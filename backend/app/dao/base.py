@@ -1,7 +1,9 @@
 from typing import Optional, Any
-from sqlalchemy import select
+from sqlalchemy import select, delete
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
+
+from app.schemas.task import TaskInDB
 
 
 class BaseDAO:
@@ -15,6 +17,17 @@ class BaseDAO:
             await session.commit()
             await session.refresh(new_instance)
             return new_instance
+        except SQLAlchemyError as e:
+            await session.rollback()
+            raise e
+
+    @classmethod
+    async def delete(cls, session: AsyncSession, **values) -> bool:
+        try:
+            query = delete(cls.model).filter_by(**values)
+            await session.execute(query)
+            await session.commit()
+            return True
         except SQLAlchemyError as e:
             await session.rollback()
             raise e

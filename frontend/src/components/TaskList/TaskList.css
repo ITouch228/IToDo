@@ -28,6 +28,10 @@
   padding: 1rem;
 }
 
+.empty-message.overdue {
+  color: red;
+}
+
 @media (max-width: 768px) {
   .task-list {
     grid-template-columns: 1fr;

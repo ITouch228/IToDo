@@ -5,7 +5,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from typing import List
 from app.models.task import Task
 from app.models.user import User
-from app.schemas.task import TaskCreate, TaskUpdate, TaskInDB
+from app.schemas.task import TaskCreate, TaskEdit, TaskUpdate, TaskInDB
 from app.dao.dao import TaskDAO
 from app.database import get_session
 from app.services.auth import get_current_user
@@ -32,6 +32,32 @@ async def create_task(
         return task_in_db
     except Exception as e:
         logging.error(f"Error creating task: {str(e)}")
+        raise HTTPException(
+            status_code=422,
+            detail={
+                "error": "Validation error",
+                "received_data": task.model_dump(),
+                "message": str(e)
+            }
+        )
+
+
+@router.post("/edit", response_model=TaskInDB)
+async def edit_task(
+        task: TaskEdit,
+        session: AsyncSession = Depends(get_session),
+        current_user: User = Depends(get_current_user)
+):
+    try:
+        db_task = task.model_dump()
+        db_task["owner_id"] = current_user.id
+        res = await TaskDAO.delete(session=session, id=task.id)
+        if res:
+            task = await TaskDAO.add(session=session, **db_task)
+            logging.info(f"Task removed")
+            return TaskInDB.model_validate(task)
+    except Exception as e:
+        logging.error(f"Error editing task: {str(e)}")
         raise HTTPException(
             status_code=422,
             detail={

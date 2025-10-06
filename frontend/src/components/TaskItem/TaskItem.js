@@ -1,7 +1,7 @@
 import "./TaskItem.css";
 import { useState } from "react";
 
-function TaskItem({ task, lang, onDeleteTask, onToggleComplete }) {
+function TaskItem({ task, lang, section, onDeleteTask, onToggleComplete, onEditTask }) {
   const [isCompleted, setIsCompleted] = useState(task.is_completed || false);
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -29,13 +29,13 @@ function TaskItem({ task, lang, onDeleteTask, onToggleComplete }) {
   return (
     <li
       className={`task-item ${
-        task.priority === 1 ? "low" : task.priority === 2 ? "medium" : "high"
-      } ${isCompleted ? "completed" : ""} ${isDeleting ? "fade-out" : ""}`}
+        task.priority === 1 ? "low " : task.priority === 2 ? "medium " : "high "
+      }${isCompleted ? "completed " : ""}${isDeleting ? "fade-out " : ""}`}
     >
       <div className="task-header">
         <h3 className="task-title">{task.title}</h3>
         {task.deadline && (
-          <span className="task-deadline">
+          <span className={`task-deadline${section === "Overdue Tasks" ? " overdue" : ""}`}>
             {lang === "eng" ? "Due:" : "До:"} {task.deadline}
           </span>
         )}
@@ -45,7 +45,10 @@ function TaskItem({ task, lang, onDeleteTask, onToggleComplete }) {
         {task.description?.length > 10 ? "..." : ""}
       </p>
       <div className="task-actions">
-        <button className="btn small">
+        <button
+          onClick={() => onEditTask(task)}
+          className="btn small"
+        >
           {lang === "eng" ? "Edit" : "Изменить"}
         </button>
         <button

@@ -36,6 +36,31 @@ export const createTask = async (taskData) => {
   }
 };
 
+export const editTask = async (taskData) => {
+  try {
+    const formattedTask = {
+      id: taskData.id,
+      title: taskData.title,
+      description: taskData.description || null,
+      deadline: taskData.deadline || null,
+      priority: taskData.priority || 2,
+      is_completed: taskData.is_completed || false,
+    };
+    console.log(formattedTask);
+    const token = localStorage.getItem("access_token");
+
+    const response = await axios.post(`${API_URL}/tasks/edit`, formattedTask, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Task edit error:", JSON.stringify(error));
+    throw error;
+  }
+}
+
 export const getTasks = async () => {
   const token = localStorage.getItem("access_token");
 
