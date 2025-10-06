@@ -12,7 +12,7 @@ app.include_router(tasks.router)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["https://itodov10.vercel.app"],
     allow_methods=["*"],
     allow_headers=["*"],
     allow_credentials=True,

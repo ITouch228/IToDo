@@ -63,7 +63,7 @@ IwIDAQAB
     )
 
     def get_db_url(self) -> str:
-        return "postgresql+asyncpg://neondb_owner:npg_7tZTNABGb6mp@ep-polished-dew-ader88t8-pooler.c-2.us-east-1.aws.neon.tech/IToDo"
+        return "postgresql+asyncpg://neondb_owner:npg_7tZTNABGb6mp@ep-polished-dew-ader88t8-pooler.c-2.us-east-1.aws.neon.tech/IToDo?ssl=require"
         # return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
 settings = Settings()
