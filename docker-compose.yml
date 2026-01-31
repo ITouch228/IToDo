@@ -53,8 +53,9 @@ services:
       - /app/node_modules
     environment:
       - CHOKIDAR_USEPOLLING=true
-    command:
-      ['npm', 'run', 'start', '--', '--host', '0.0.0.0', '--port', '5173']
-
+      - HOST=0.0.0.0
+      - PORT=5173
+      - WDS_SOCKET_PORT=443
+    command: ['npm', 'start']
 volumes:
   pg_data:
