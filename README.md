@@ -1,70 +1,270 @@
-# Getting Started with Create React App
+# IToDo - Приложение для управления задачами
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+IToDo - это полнофункциональное приложение для управления задачами с фронтендом на React и бэкендом на FastAPI с базой данных PostgreSQL. Приложение предоставляет чистый и интуитивно понятный интерфейс для управления личными задачами, с аутентификацией пользователей и контролем доступа на основе ролей.
 
-## Available Scripts
+## Особенности
 
-In the project directory, you can run:
+### Фронтенд (React)
 
-### `npm start`
+- Удобный интерфейс управления задачами
+- Аутентификация пользователя (вход/регистрация)
+- Создание, редактирование и удаление задач
+- Функционал фильтрации и поиска задач
+- Адаптивный дизайн для всех размеров устройств
+- Поддержка нескольких языков
+- Чистый и современный пользовательский интерфейс с интуитивной навигацией
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Бэкенд (FastAPI)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Дизайн RESTful API
+- Аутентификация на основе JWT
+- Регистрация и вход пользователя
+- Операции CRUD для задач
+- Шифрование паролей с помощью bcrypt
+- Валидация ввода с помощью Pydantic
+- Миграции базы данных с помощью Alembic
+- Асинхронные операции с базой данных с использованием SQLAlchemy и asyncpg
+- Контроль доступа на основе ролей
 
-### `npm test`
+### База данных (PostgreSQL)
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- Безопасное хранение пользовательских данных
+- Управление задачами с метаданными
+- Оптимизированные запросы для производительности
+- Поддержка миграций базы данных
 
-### `npm run build`
+## Используемые технологии
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Бэкенд
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- **Python 3.11**
+- **FastAPI** - Современный, быстрый веб-фреймворк для создания API
+- **SQLAlchemy** - Инструментарий SQL и ORM
+- **PostgreSQL** - Объектно-реляционная система баз данных
+- **AsyncPG** - Асинхронный драйвер PostgreSQL
+- **Pydantic** - Библиотека валидации данных
+- **PyJWT** - Реализация JSON Web Token
+- **BCrypt** - Хеширование паролей
+- **Alembic** - Инструмент миграции базы данных
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Фронтенд
 
-### `npm run eject`
+- **React 19** - Библиотека JavaScript для создания пользовательских интерфейсов
+- **React Router** - Декларативная маршрутизация для React
+- **Axios** - Promise-ориентированный HTTP-клиент
+- **React Datepicker** - Компонент выбора даты
+- **React Icons** - SVG-иконки для React
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Инфраструктура
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- **Docker** - Платформа контейнеризации
+- **Docker Compose** - Оркестрация контейнеров
+- **Переменные окружения** - Управление конфигурацией
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Структура проекта
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+```
+IToDo/
+├── backend/                 # Приложение FastAPI бэкенда
+│   ├── app/
+│   │   ├── main.py         # Точка входа в приложение
+│   │   ├── config.py       # Конфигурационные настройки
+│   │   ├── database.py     # Конфигурация базы данных
+│   │   ├── models/         # Модели базы данных
+│   │   ├── schemas/        # Схемы Pydantic
+│   │   ├── routes/         # Маршруты API
+│   │   ├── services/       # Бизнес-логика
+│   │   └── dao/            # Объекты доступа к данным
+│   ├── requirements.txt    # Зависимости Python
+│   └── Dockerfile          # Конфигурация Docker
+├── frontend/               # Приложение React фронтенда
+│   ├── src/
+│   │   ├── components/     # Компоненты React
+│   │   ├── api/           # Интеграция API
+│   │   ├── utils/         # Вспомогательные функции
+│   │   └── App.js         # Главный компонент приложения
+│   └── package.json       # Зависимости Node.js
+├── docker-compose.yml      # Оркестрация Docker
+├── .env                   # Переменные окружения
+└── README.md              # Документация проекта
+```
 
-## Learn More
+## Установка и настройка
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Предварительные требования
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+- Docker и Docker Compose
+- Git
 
-### Code Splitting
+### Быстрый запуск с Docker
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+1. Клонируйте репозиторий:
 
-### Analyzing the Bundle Size
+   ```bash
+   git clone <repository-url>
+   cd IToDo
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+2. Создайте файл `.env` в корневом каталоге с вашими учетными данными базы данных:
 
-### Making a Progressive Web App
+   ```
+   POSTGRES_DB=itodo
+   POSTGRES_USER=itodo
+   POSTGRES_PASSWORD=1122
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+3. Соберите и запустите сервисы:
 
-### Advanced Configuration
+   ```bash
+   docker-compose up --build
+   ```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+4. Приложение будет доступно по адресам:
+   - Фронтенд: http://localhost:3000
+   - API бэкенда: http://localhost:8000
+   - Документация бэкенда: http://localhost:8000/docs
 
-### Deployment
+### Ручная настройка
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+#### Настройка бэкенда
 
-### `npm run build` fails to minify
+1. Перейдите в каталог бэкенда:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+   ```bash
+   cd backend
+   ```
+
+2. Создайте виртуальное окружение:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # В Windows: venv\Scripts\activate
+   ```
+
+3. Установите зависимости:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+4. Настройте базу данных и выполните миграции:
+
+   ```bash
+   alembic upgrade head
+   ```
+
+5. Запустите сервер бэкенда:
+   ```bash
+   uvicorn app.main:app --reload --port 8000
+   ```
+
+#### Настройка фронтенда
+
+1. Перейдите в каталог фронтенда:
+
+   ```bash
+   cd frontend
+   ```
+
+2. Установите зависимости:
+
+   ```bash
+   npm install
+   ```
+
+3. Запустите сервер разработки:
+   ```bash
+   npm start
+   ```
+
+## Конечные точки API
+
+### Аутентификация
+
+- `POST /auth/register` - Регистрация нового пользователя
+- `POST /auth/login` - Вход и получение JWT токенов
+- `POST /auth/refresh` - Обновление токена доступа
+
+### Задачи
+
+- `GET /tasks` - Получить все задачи (отфильтрованные по пользователю)
+- `GET /tasks/{task_id}` - Получить конкретную задачу
+- `POST /tasks` - Создать новую задачу
+- `PUT /tasks/{task_id}` - Обновить задачу
+- `DELETE /tasks/{task_id}` - Удалить задачу
+
+## Переменные окружения
+
+Создайте файл `.env` в корневом каталоге со следующими переменными:
+
+```env
+POSTGRES_DB=itodo
+POSTGRES_USER=itodo
+POSTGRES_PASSWORD=1122
+```
+
+## Сервисы Docker Compose
+
+Приложение состоит из следующих сервисов:
+
+- **db**: Контейнер базы данных PostgreSQL
+- **backend**: Контейнер приложения FastAPI
+- **frontend**: Контейнер приложения React (если настроен)
+
+## Миграции базы данных
+
+Приложение использует Alembic для миграций базы данных:
+
+1. Чтобы создать новую миграцию:
+
+   ```bash
+   alembic revision --autogenerate -m "Описание изменений"
+   ```
+
+2. Чтобы применить миграции:
+
+   ```bash
+   alembic upgrade head
+   ```
+
+3. Чтобы откатить:
+   ```bash
+   alembic downgrade -1
+   ```
+
+## Особенности безопасности
+
+- Аутентификация на основе JWT токенов
+- Шифрование паролей с помощью bcrypt
+- Валидация и очистка ввода
+- Настройка CORS
+- Безопасное управление сессиями
+
+## Разработка
+
+### Стиль кодирования
+
+- Бэкенд: Следует руководству стиля PEP 8
+- Фронтенд: Использует ESLint для проверки
+
+## Развертывание
+
+Для развертывания в продакшене:
+
+1. Обновите переменные окружения значениями для продакшена
+2. Настройте SSL сертификаты
+3. Настройте обратный прокси-сервер (nginx, Apache)
+4. Используйте базу данных промышленного уровня
+5. Реализуйте надлежащее ведение логов и мониторинг
+
+## Вклад в развитие
+
+1. Сделайте форк репозитория
+2. Создайте ветку для новой функции (`git checkout -b feature/amazing-feature`)
+3. Зафиксируйте изменения (`git commit -m 'Добавить удивительную функцию'`)
+4. Отправьте изменения в ветку (`git push origin feature/amazing-feature`)
+5. Откройте Pull Request
+
+## Поддержка
+
+Если вы столкнетесь с какими-либо проблемами или у вас есть вопросы, пожалуйста, откройте issue в репозитории или свяжитесь с разработчиками.

@@ -63,30 +63,6 @@ IwIDAQAB
     )
 
     def get_db_url(self) -> str:
-        return "postgresql+asyncpg://neondb_owner:npg_7tZTNABGb6mp@ep-polished-dew-ader88t8-pooler.c-2.us-east-1.aws.neon.tech/IToDo?ssl=require"
-        # return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
+        return f"postgresql+asyncpg://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
 settings = Settings()
-
-# from cryptography.hazmat.primitives.asymmetric import rsa
-# from cryptography.hazmat.primitives import serialization
-#
-# print("Generating new RSA keys...")
-# private_key = rsa.generate_private_key(
-#     public_exponent=65537,
-#     key_size=2048
-# )
-# public_key = private_key.public_key()
-#
-# settings.PRIVATE_KEY = private_key.private_bytes(
-#     encoding=serialization.Encoding.PEM,
-#     format=serialization.PrivateFormat.TraditionalOpenSSL,
-#     encryption_algorithm=serialization.NoEncryption()
-# ).decode()
-#
-# settings.PUBLIC_KEY = public_key.public_bytes(
-#     encoding=serialization.Encoding.PEM,
-#     format=serialization.PublicFormat.SubjectPublicKeyInfo
-# ).decode()
-#
-# print("New RSA keys generated successfully!")
