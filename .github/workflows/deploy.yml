@@ -1,0 +1,43 @@
+name: deploy-dev
+
+on:
+  push:
+    branches: ['main']
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy via SSH (git pull + write .env + compose up)
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SSH_HOST }}
+          username: ${{ secrets.SSH_USER }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            set -e
+            cd /var/www/itodo-pet-project
+
+            git fetch --all
+            git reset --hard origin/main
+
+            umask 077
+            mkdir -p backend
+            cat > backend/.env << 'EOF'
+            DB_USER=${{ secrets.DB_USER }}
+            DB_PASSWORD=${{ secrets.DB_PASSWORD }}
+            DB_HOST=db
+            DB_PORT=5432
+            DB_NAME=${{ secrets.DB_NAME }}
+            EOF
+
+            cat > .env << 'EOF'
+            POSTGRES_USER=${{ secrets.POSTGRES_USER }}
+            POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
+            POSTGRES_DB=${{ secrets.POSTGRES_DB }}
+            EOF
+
+            docker compose up -d --build --remove-orphans
