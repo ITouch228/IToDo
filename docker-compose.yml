@@ -8,8 +8,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-itodo}
-    ports:
-      - '5432:5432'
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -34,8 +32,6 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - '8000:8000'
     volumes:
       - ./backend:/app
     command: ['bash', '/app/entrypoint.sh']
@@ -46,8 +42,6 @@ services:
     container_name: itodo_frontend
     depends_on:
       - backend
-    ports:
-      - '5173:5173'
     volumes:
       - ./frontend:/app
       - /app/node_modules
