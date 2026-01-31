@@ -32,6 +32,9 @@ jobs:
             DB_HOST=db
             DB_PORT=5432
             DB_NAME=${{ secrets.DB_NAME }}
+
+            PRIVATE_KEY_PATH=/app/keys/private.pem
+            PUBLIC_KEY_PATH=/app/keys/public.pem
             EOF
 
             cat > .env << 'EOF'
@@ -39,5 +42,15 @@ jobs:
             POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }}
             POSTGRES_DB=${{ secrets.POSTGRES_DB }}
             EOF
+
+            mkdir -p backend/keys
+            cat > backend/keys/private.pem << 'EOF'
+            ${{ secrets.PRIVATE_KEY_PEM }}
+            EOF
+            cat > backend/keys/public.pem << 'EOF'
+            ${{ secrets.PUBLIC_KEY_PEM }}
+            EOF
+            chmod 600 backend/keys/private.pem
+            chmod 644 backend/keys/public.pem
 
             docker compose up -d --build --remove-orphans
