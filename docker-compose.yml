@@ -52,7 +52,7 @@ services:
       - ./frontend:/app
       - /app/node_modules
     environment:
-      - REACT_APP_API_URL=http://localhost:8000
+      - REACT_APP_API_URL=/api
       - CHOKIDAR_USEPOLLING=true
       - HOST=0.0.0.0
       - PORT=5173
