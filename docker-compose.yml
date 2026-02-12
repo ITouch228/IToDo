@@ -2,14 +2,13 @@ services:
   db:
     image: postgres:16-alpine
     container_name: itodo_db
+    restart: unless-stopped
     env_file:
       - ./.env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
       POSTGRES_DB: ${POSTGRES_DB:-itodo}
-    ports:
-      - '127.0.0.1:5432:5432'
     volumes:
       - pg_data:/var/lib/postgresql/data
     healthcheck:
@@ -21,11 +20,14 @@ services:
       interval: 5s
       timeout: 3s
       retries: 20
+    networks:
+      - internal
 
   backend:
     build:
       context: ./backend
     container_name: itodo_backend
+    restart: unless-stopped
     env_file:
       - ./backend/.env
     environment:
@@ -34,30 +36,31 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    ports:
-      - '127.0.0.1:8000:8000'
-    volumes:
-      - ./backend:/app
-    command: ['bash', '/app/entrypoint.sh']
+    expose:
+      - '8000'
+    networks:
+      - internal
+      - proxy
 
   frontend:
     build:
       context: ./frontend
+      args:
+        REACT_APP_API_URL: /api
     container_name: itodo_frontend
+    restart: unless-stopped
     depends_on:
       - backend
-    ports:
-      - '127.0.0.1:5173:5173'
-    volumes:
-      - ./frontend:/app
-      - /app/node_modules
-    environment:
-      - REACT_APP_API_URL=/api
-      - CHOKIDAR_USEPOLLING=true
-      - HOST=0.0.0.0
-      - PORT=5173
-      - WDS_SOCKET_PORT=443
-    command: ['npm', 'start']
+    expose:
+      - '80'
+    networks:
+      - proxy
 
 volumes:
   pg_data:
+
+networks:
+  internal:
+    driver: bridge
+  proxy:
+    external: true

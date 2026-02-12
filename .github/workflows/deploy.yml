@@ -25,7 +25,6 @@ jobs:
             git reset --hard origin/main
 
             umask 077
-            mkdir -p backend
             cat > backend/.env << 'EOF'
             DB_USER=${{ secrets.DB_USER }}
             DB_PASSWORD=${{ secrets.DB_PASSWORD }}
@@ -54,3 +53,5 @@ jobs:
             chmod 644 backend/keys/public.pem
 
             docker compose up -d --build --remove-orphans
+
+            docker image prune -f
