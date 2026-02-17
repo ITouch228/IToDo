@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -10,30 +10,11 @@
     />
     <title>IToDo - Task Manager</title>
 
-    <!-- Preconnect to external resources -->
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Favicon (generated from https://favicon.io) -->
-    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-    <link rel="manifest" href="/site.webmanifest" />
-
-    <!-- Preload critical CSS -->
-    <!-- <link rel="preload" href="%PUBLIC_URL%/index.css" as="style" /> -->
-
-    <!-- iOS meta tags -->
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta
-      name="apple-mobile-web-app-status-bar-style"
-      content="black-translucent"
-    />
-
-    <!-- PWA manifest -->
-    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+    <link rel="icon" type="image/x-icon" href="/logo.png" />
   </head>
   <body>
-    <!-- Display a loading message until React mounts -->
     <noscript>
       <div class="noscript-warning">
         <h1>JavaScript is disabled</h1>
@@ -44,15 +25,14 @@
       </div>
     </noscript>
 
-    <!-- React root element -->
     <div id="root"></div>
 
-    <!-- Inline critical CSS for initial render -->
     <style>
       body {
         margin: 0;
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-          Oxygen, Ubuntu, Cantarell, sans-serif;
+        font-family:
+          -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu,
+          Cantarell, sans-serif;
         background: #f5f7fa;
       }
       .noscript-warning {
